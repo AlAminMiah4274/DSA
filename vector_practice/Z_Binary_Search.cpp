@@ -13,11 +13,26 @@ int main()
     }
 
     int X;
-    vector<int> v_x;
     for (int i = 0; i < Q; i++)
     {
         cin >> X;
-        v_x.push_back(X);
+        int flag = 0;
+        for (auto it = numbers.begin(); it < numbers.end(); it++)
+        {
+            if (*it == X)
+            {
+                flag = 1;
+                break;
+            }
+        }
+        if (flag == 1)
+        {
+            cout << "found" << endl;
+        }
+        else 
+        {
+            cout << "not found" << endl;
+        }
     }
 
     return 0;
