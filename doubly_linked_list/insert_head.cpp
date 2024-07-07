@@ -16,26 +16,23 @@ public:
     }
 };
 
-void insert_at_position(Node *head, int position, int val)
+void insert_at_tail(Node *&head, Node *&tail, int val)
 {
     Node *newNode = new Node(val);
 
-    Node *temp = head;
-    for (int i = 1; i <= position - 1; i++)
+    if (head == NULL)
     {
-        temp = temp->next;
-        if (temp == NULL)
-        {
-            return;
-        }
+        head = newNode;
+        tail = newNode;
+        return;
     }
-    newNode->next = temp->next;
-    temp->next = newNode;
-    newNode->next->prev = newNode;
-    newNode->prev = temp;
+
+    tail->next = newNode;
+    newNode->prev = tail;
+    tail = newNode;
 }
 
-void insert_at_tail(Node *&head, Node *&tail, int val)
+void insert_at_head(Node *&head, Node *&tail, int val)
 {
     Node *newNode = new Node(val);
     if (head == NULL)
@@ -44,9 +41,9 @@ void insert_at_tail(Node *&head, Node *&tail, int val)
         tail = newNode;
         return;
     }
-    tail->next = newNode;
-    newNode->prev = tail;
-    tail = newNode;
+    newNode->next = head;
+    head->prev = newNode;
+    head = newNode;
 }
 
 void print_linked_list(Node *head)
@@ -71,19 +68,6 @@ void print_reverse(Node *tail)
     cout << endl;
 }
 
-int node_size(Node *head)
-{
-    Node *temp = head;
-    int count = 0;
-    while (temp != NULL)
-    {
-        count++;
-        temp = temp->next;
-    }
-
-    return count;
-}
-
 int main()
 {
     Node *head = NULL;
@@ -100,16 +84,7 @@ int main()
         insert_at_tail(head, tail, val);
     }
 
-    int posi, posi_val;
-    cin >> posi >> posi_val;
-    if (posi >= node_size(head))
-    {
-        cout << "invalid" << endl;
-    }
-    else
-    {
-        insert_at_position(head, posi, posi_val);
-    }
+    insert_at_head(head, tail, 105);
 
     print_linked_list(head);
     print_reverse(tail);
