@@ -51,6 +51,7 @@ void make_reverse(Node *head, Node *tail)
         i = i->next;
         j = j->prev;
     }
+    swap(i->value, j->value);
 }
 
 int main()
@@ -76,3 +77,19 @@ int main()
 }
 
 /* i == j (odd), i->next == j (even) --> loop break */
+
+/*
+void make_reverse(Node *head, *tail)
+{
+    Node *i = head;
+    Node *j = tail;
+    while (i != j && i->next != j)
+    {
+        swap(i->value, j->value);
+        i = i->next;
+        j = j->prev;
+    }
+
+    swap(i->value, j->value);
+}
+*/
