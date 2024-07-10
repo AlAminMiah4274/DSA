@@ -1,22 +1,24 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-class Node
+class Node 
 {
 public:
     int value;
     Node *next;
+    Node *prev;
+
     Node(int value)
     {
         this->value = value;
         this->next = NULL;
+        this->prev = NULL;
     }
 };
 
 void insert_at_tail(Node *&head, Node *&tail, int val)
 {
     Node *newNode = new Node(val);
-
     if (head == NULL)
     {
         head = newNode;
@@ -24,6 +26,7 @@ void insert_at_tail(Node *&head, Node *&tail, int val)
         return;
     }
     tail->next = newNode;
+    newNode->prev = tail;
     tail = newNode;
 }
 
@@ -38,17 +41,15 @@ void print_linked_list(Node *head)
     cout << endl;
 }
 
-int node_size(Node *head)
+void print_reverse(Node *tail)
 {
-    Node *temp = head;
-    int count = 0;
+    Node *temp = tail;
     while (temp != NULL)
     {
-        count++;
-        temp = temp->next;
+        cout << temp->value << " ";
+        temp = temp->prev;
     }
-
-    return count;
+    cout << endl;
 }
 
 int main()
@@ -67,7 +68,17 @@ int main()
         insert_at_tail(head, tail, val);
     }
 
-    // formula: size/2 
+    Node *i = head;
+    Node *j = tail;
+    while (i != j && i->next != j)
+    {
+        swap(i->value, j->value);
+        i = i->next;
+        j = j->prev;
+    }
+    swap(i->value, j->value);
+
+    print_linked_list(head);
 
     return 0;
 }
