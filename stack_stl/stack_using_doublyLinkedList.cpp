@@ -8,7 +8,7 @@ public:
     Node *next;
     Node *prev;
 
-    Node (int value)
+    Node(int value)
     {
         this->value = value;
         this->next = NULL;
@@ -22,8 +22,10 @@ public:
     Node *head = NULL;
     Node *tail = NULL;
 
+    int size = 0;
     void push(int val)
     {
+        size++;
         Node *newNode = new Node(val);
         if (head == NULL)
         {
@@ -37,30 +39,44 @@ public:
     }
     void pop()
     {
+        size--;
         Node *deletedNode = tail;
         tail = tail->prev;
         delete deletedNode;
+        if (tail == NULL)
+        {
+            head = NULL;
+            return;
+        }
         tail->next = NULL;
     }
     int top()
     {
         return tail->value;
     }
-    int size()
+    int stack_size()
     {
-        Node *temp = head;
-        int count = 0;
-        while (temp != NULL)
-        {
-            count++;
-            temp = temp->next;
-        }
-        return count;
+        // Node *temp = head; // O(N)
+        // int count = 0;
+        // while (temp != NULL)
+        // {
+        //     count++;
+        //     temp = temp->next;
+        // }
+        // return count;
+
+        return size; // O(1)
     }
     bool empty()
     {
-        if (size() == 0) return true;
-        return false;
+        if (stack_size() == 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 };
 
@@ -68,17 +84,26 @@ int main()
 {
     myStack wallet;
 
-    int q;
-    cin >> q;
-    while (q--)
+    // int q;
+    // cin >> q;
+    // while (q--)
+    // {
+    //     int v;
+    //     cin >> v;
+    //     if (v == -1)
+    //     {
+    //         break;
+    //     }
+    //     wallet.push(v);
+    // }
+
+    int n;
+    cin >> n;
+    for (int i = 0; i < n; i++)
     {
-        int v;
-        cin >> v;
-        if (v == -1)
-        {
-            break;
-        }
-        wallet.push(v);
+        int x;
+        cin >> x;
+        wallet.push(x);
     }
 
     while (!wallet.empty())

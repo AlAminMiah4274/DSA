@@ -21,7 +21,7 @@ public:
     {
         return myVector.size();
     }
-    int empty()
+    bool empty()
     {
         if (myVector.size() == 0)
             return true;
