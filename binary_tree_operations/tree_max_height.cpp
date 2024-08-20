@@ -26,7 +26,7 @@ Node *input_binary_tree()
     {
         root = NULL;
     }
-    else 
+    else
     {
         root = new Node(val);
     }
@@ -41,17 +41,18 @@ Node *input_binary_tree()
         Node *parent_node = q.front();
         q.pop();
 
-        // ----------
+        // --------
         int left, right;
         cin >> left >> right;
 
         Node *left_node;
         Node *right_node;
+
         if (left == -1)
         {
             left_node = NULL;
         }
-        else 
+        else
         {
             left_node = new Node(left);
         }
@@ -60,14 +61,14 @@ Node *input_binary_tree()
         {
             right_node = NULL;
         }
-        else 
+        else
         {
             right_node = new Node(right);
         }
         parent_node->left = left_node;
         parent_node->right = right_node;
 
-        // ----------
+        // ---------
         if (parent_node->left)
         {
             q.push(parent_node->left);
@@ -82,45 +83,23 @@ Node *input_binary_tree()
     return root;
 }
 
-int count_leaf(Node *root)
+int tree_height(Node *root)
 {
     if (root == NULL)
     {
         return 0;
     }
 
-    if (root->left == NULL && root->right == NULL)
-    {
-        return 1;
-    }
-    else 
-    {
-        int left = count_leaf(root->left);
-        int right = count_leaf(root->right);
-        return left + right;
-    }
-}
-
-int count_node(Node *root)
-{
-    if (root == NULL)
-    {
-        return 0;
-    }
-
-    int left = count_node(root->left);
-    int right = count_node(root->right);
-    return left + right + 1;
+    int left = tree_height(root->left);
+    int right = tree_height(root->right);
+    return max(left, right) + 1;
 }
 
 int main()
 {
     Node *root = input_binary_tree();
-    int result = count_leaf(root);
+    int result = tree_height(root);
     cout << result << endl;
-
-    // int result = count_node(root);
-    // cout << result << endl;
 
     return 0;
 }
