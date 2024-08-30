@@ -1,7 +1,11 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-void insert_max_heap(vector<int> &v, int x)
+/*
+complexity for inserting 1 value --> O(log N)
+complexity for inserting n numbers of value --> O(N log N) 
+*/
+void insert_min_heap(vector<int> &v, int x)
 {
     v.push_back(x);
 
@@ -9,11 +13,11 @@ void insert_max_heap(vector<int> &v, int x)
     while (current_index != 0)
     {
         int parent_index = (current_index - 1) / 2;
-        if (v[parent_index] < v[current_index])
+        if (v[current_index] < v[parent_index])
         {
-            swap(v[parent_index], v[current_index]);
+            swap(v[current_index], v[parent_index]);
         }
-        else 
+        else
         {
             break;
         }
@@ -21,7 +25,7 @@ void insert_max_heap(vector<int> &v, int x)
     }
 }
 
-void print_max_heap(vector<int> v)
+void print_min_heap(vector<int> v)
 {
     for (int num : v)
     {
@@ -30,7 +34,11 @@ void print_max_heap(vector<int> v)
     cout << endl;
 }
 
-void delete_max_heap(vector<int> &v)
+/*
+complexity for deleting 1 value --> O(log N)
+complexity for deleting n numbers of value --> O(N log N) 
+*/
+void delete_min_heap(vector<int> &v)
 {
     v[0] = v[v.size() - 1];
     v.pop_back();
@@ -44,13 +52,13 @@ void delete_max_heap(vector<int> &v)
 
         if (left <= last_index && right <= last_index)
         {
-            // left and right are available
-            if (v[left] >= v[right] && v[left] > v[current_index])
+            // left and right are available 
+            if (v[left] <= v[right] && v[left] < v[current_index])
             {
                 swap(v[left], v[current_index]);
                 current_index = left;
             }
-            else if (v[right] >= v[left] && v[right] > v[current_index])
+            else if (v[right] <= v[left] && v[right] < v[current_index])
             {
                 swap(v[right], v[current_index]);
                 current_index = right;
@@ -63,7 +71,7 @@ void delete_max_heap(vector<int> &v)
         else if (left <= last_index)
         {
             // left is available 
-            if (v[left] > v[current_index])
+            if (v[left] < v[current_index])
             {
                 swap(v[left], v[current_index]);
                 current_index = left;
@@ -76,10 +84,14 @@ void delete_max_heap(vector<int> &v)
         else if (right <= last_index)
         {
             // right is available 
-            if (v[right] > v[current_index])
+            if (v[right] < v[current_index])
             {
                 swap(v[right], v[current_index]);
                 current_index = right;
+            }
+            else 
+            {
+                break;
             }
         }
         else 
@@ -93,19 +105,19 @@ int main()
 {
     int n;
     cin >> n;
-    vector<int> max_heap;
+    vector<int> min_heap;
     for (int i = 0; i < n; i++)
     {
         int x;
         cin >> x;
-        insert_max_heap(max_heap, x);
+        insert_min_heap(min_heap, x);
     }
 
-    delete_max_heap(max_heap);
-    print_max_heap(max_heap);
-    
-    delete_max_heap(max_heap);
-    print_max_heap(max_heap);
+    delete_min_heap(min_heap);
+    print_min_heap(min_heap);
+
+    delete_min_heap(min_heap);
+    print_min_heap(min_heap);
 
     return 0;
 }
