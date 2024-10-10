@@ -1,115 +1,65 @@
-// #include <bits/stdc++.h>
-// using namespace std;
+#include <bits/stdc++.h>
+using namespace std;
 
-// int main()
-// {
-//     list<int> myList;
-//     // list<int> myList_r = myList;
-
-//     int Q;
-//     cin >> Q;
-//     for (int i = 0; i < Q; i++)
-//     {
-
-//         int X, V;
-//         cin >> X >> V;
-//         if (X == 0)
-//         {
-//             myList.push_front(V);
-//         }
-//         else if (X == 1)
-//         {
-//             myList.push_back(V);
-//         }
-//         // else if (X == 2)
-//         // {
-//         //     myList.erase(next(myList.begin(), V));
-//         // }
-
-//         // cout << "L -> ";
-//         // for (int e : myList)
-//         // {
-//         //     cout << e << endl;
-//         // }
-//         // cout << endl;
-
-//         // cout << "R -> ";
-//         // myList.reverse();
-//         // for (int e : myList)
-//         // {
-//         //     cout << e << endl;
-//         // }
-//     }
-
-//     cout << "L -> ";
-//     for (int e : myList)
-//     {
-//         cout << e << endl;
-//     }
-//     cout << endl;
-
-//     cout << "R -> ";
-//     myList.reverse();
-//     for (int e : myList)
-//     {
-//         cout << e << endl;
-//     }
-
-//     return 0;
-// }
-
-#include <iostream>
-#include <list>
-
-int main() {
-    int Q;
-    std::cin >> Q;
+int main()
+{
+    list<int> my_list;
     
-    std::list<int> myList;
+    int q;
+    cin >> q;
     
-    for (int i = 0; i < Q; ++i) {
-        int X, V;
-        std::cin >> X >> V;
+    while (q--)
+    {
+        int x, v;
+        cin >> x >> v;
         
-        if (X == 0) {
-            // Insert V at the head
-            myList.push_front(V);
-        } else if (X == 1) {
-            // Insert V at the tail
-            myList.push_back(V);
-        } else if (X == 2) {
-            // Delete element at index V if valid
-            if (V >= 0 && V < myList.size()) {
-                auto it = myList.begin();
-                std::advance(it, V);
-                myList.erase(it);
-            } else {
-                // Index V is invalid
-                std::cout << "Invalid" << std::endl;
-                continue;
+        
+        if (x == 0)
+        {
+            my_list.push_front(v);
+        }
+        else if (x == 1)
+        {
+            my_list.push_back(v);
+        }
+        else if (x == 2)
+        {
+            if (v < my_list.size())
+            {
+                my_list.erase(next(my_list.begin(), v));
             }
         }
-        
-        // Print list from left to right
-        std::cout << "L -> ";
-        for (auto it = myList.begin(); it != myList.end(); ++it) {
-            std::cout << *it;
-            if (std::next(it) != myList.end()) {
-                std::cout << " ";
-            }
+
+        cout << "L -> ";
+        for (int e : my_list)
+        {
+            cout << e << " ";
         }
-        std::cout << std::endl;
-        
-        // Print list from right to left
-        std::cout << "R -> ";
-        for (auto it = myList.rbegin(); it != myList.rend(); ++it) {
-            std::cout << *it;
-            if (std::next(it) != myList.rend()) {
-                std::cout << " ";
-            }
+        cout << endl;
+
+
+        cout << "R -> ";
+        for (auto it = my_list.rbegin(); it != my_list.rend(); it++)
+        {
+            cout << *it << " ";
         }
-        std::cout << std::endl;
     }
-    
+
+
     return 0;
 }
+
+
+
+/*
+A different way to print a stl list reversely: 
+
+    list<int> numbers = {10, 20, 30, 40, 50};
+    
+    
+    for (auto it = (--numbers.end()); it != (--numbers.begin()); it--)
+    {
+        cout << (*it) << " ";
+    }
+
+*/
